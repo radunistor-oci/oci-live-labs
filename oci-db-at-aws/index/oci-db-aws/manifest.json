@@ -1,5 +1,5 @@
 {
-    "workshoptitle": "OCI Network Firewall Common Use Cases",
+    "workshoptitle": "Oracle Database@AWS",
     "help": "livelabs-help-oci_us@oracle.com",
     "tutorials": [
         {
@@ -12,28 +12,24 @@
             "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/cloud-login.md"
         },
         {
-            "title": "Lab 1: OCI Network Firewall deployment",
+            "title": "Lab 1: Deploy the initial network - ODB and Transit VPC",
             "filename": "../../lab1/lab1.md"
         },
         {
-            "title": "Lab 2: East-West Traffic Inspection",
+            "title": "Lab 2: Deploy additional network infrastructure - Client VPC and Transit Gateway",
             "filename": "../../lab2/lab2.md"
         },
         {
-            "title": "Lab 3: Inspect outbound Internet traffic",
+            "title": "Lab 3: DNS Integration",
             "filename": "../../lab3/lab3.md"
         },
         {
-            "title": "Lab 4: Inspect outbound traffic to OCI Services",
+            "title": "Lab 4: Deploy a VM Cluster and a test database",
             "filename": "../../lab4/lab4.md"
         },
         {
-            "title": "Lab 5: Inspect inbound Internet traffic",
+            "title": "Lab 5: Mount AWS Elastic File System with NFS",
             "filename": "../../lab5/lab5.md"
-        },
-        {
-            "title": "Lab 6: SSL Decryption and Intrusion Detection",
-            "filename": "../../lab6/lab6.md"
         },
         {
             "title": "Need Help?",
