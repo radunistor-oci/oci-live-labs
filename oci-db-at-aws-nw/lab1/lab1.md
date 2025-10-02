@@ -4,23 +4,23 @@
 
 Estimated Time: 60 minutes
 
-### About Virtual Cloud Networks and the OCI Network Firewall
+### About the ODB Network
 
-Virtual Cloud Networks (VCNs) provide customizable and private cloud networks in Oracle Cloud Infrastructure (OCI). Just like a traditional data center network, the VCN provides customers with complete control over their cloud networking environment. This includes assigning private IP address spaces, creating subnets and route tables, and configuring stateful firewalls. [Visit our documentation](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/Overview_of_VCNs_and_Subnets.htm) for more information on Virtual Cloud Networks.
+An ODB network is a private and isolated network that hosts the Oracle Exadata VM Clusters and Autonomous VM Clusters within a specified AWS Availability Zone (AZ). The ODB network consists of a CIDR range of IP addresses. The ODB network maps directly to the network that exists within the Oracle Cloud Infrastructure (OCI) child site, thus serving as the means of communication between AWS and OCI. In Oracle Multicloud architecture, the ODB network is designed to accommodate and provide network connectivity for the OCI components that are part of Oracle Database@AWS.
 
-OCI Network Firewall is a next-generation managed network firewall and intrusion detection and prevention service for your Oracle Cloud Infrastructure virtual cloud network (VCN), powered by Palo Alto Networks®. [Visit our documentation](https://docs.oracle.com/en-us/iaas/Content/network-firewall/home.htm) for more information on the Network Firewall service.
+The ODB network is a private network, and by default, doesn't have connectivity to AWS VPCs, on-premises networks or the internet. ODB peering is a user-created network connection that enables traffic to be routed privately between an Amazon VPC and an ODB network.
 
 ### Objectives
 
 In this lab, you will:
 
-* Build a Virtual Cloud Network (VCN) and a firewall dedicated subnet.
-* Create a Route table and a Security List for the firewall-dedicated subnet.
-* Deploy an OCI Network Firewall.
+* Create an ODB Network in an AWS Availability Zone.
+* Create a VPC in the same Av. Zone as the ODB Network.
+* Create a peering between the ODB Network and the AWS VPC.
 
 ![lab1](images/lab1.png)
 
-## Task 1: Deploy a VCN (Virtual Cloud Network) and a dedicated firewall subnet (private)
+## Task 1: Create the ODB Network.
 
 We will start with a basic VCN deployment. One of the goals of this livelab is also to provide an understanding of OCI routing and gateways, in relation to the OCI Network Firewall service. For this reason, we will not use the VCN Wizard which deploys all OCI Gateways and creates basic routing rules. Instead, we will manually create each artifact as needed.
 
