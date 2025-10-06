@@ -18,7 +18,7 @@ In this lab, you will:
 * Create a VPC in the same Av. Zone as the ODB Network.
 * Create a peering between the ODB Network and the AWS VPC.
 
-![lab1](images/lab1.png)
+![lab1](images/lab1pic1.png)
 
 ## Task 1: Create the ODB Network.
 
@@ -34,7 +34,7 @@ We will start with a basic VCN deployment. One of the goals of this livelab is a
 3. After you press **Create VCN**, you will be redirected to the VCN Details page, with the Subnets menu selected. Press **Create Subnet**. In the subnet creation menu, give it a name, assign a CIDR (I will use 10.0.0.0/27) and make it a **Private** subnet. Leave everything else with default settings.
   ![Create Subnet](images/createsubnet.png)
 
-## Task 2: VCN Route table and Subnet Security List
+## Task 2: Create the AWS VPC
 
   Now that we have a VCN and a Subnet, we need to add a VCN Route Table and a Security List to that subnet. While the default ones, deployed automatically by OCI, can be used, it is recommended to have dedicated ones.
 
@@ -71,7 +71,7 @@ We will start with a basic VCN deployment. One of the goals of this livelab is a
    Next, remove the Default Security List by clicking on the 3 **dots** at the end of the row, and clicking **Remove**.
   ![Remove sec list](images/removesl.png)
 
-## Task 3: Deploy an OCI Network Firewall
+## Task 3: Create the ODB Peering
 
   Now that we prepared the VCN and the Subnet, it is time to focus on the OCI Network Firewall. To deploy a Firewall we need to give it a policy. We will start by deploying an empty Firewall Policy and then use it to deploy an OCI Network Firewall.
 
@@ -100,5 +100,5 @@ We will start with a basic VCN deployment. One of the goals of this livelab is a
 
 ## Acknowledgements
 
-* **Author** - Radu Nistor, Principal Cloud Architect, OCI Networking
-* **Last Updated By/Date** - Radu Nistor, November 2023
+* **Author** - Radu Nistor, Master Principal Cloud Architect, OCI Networking
+* **Last Updated By/Date** - Radu Nistor, November 2025
