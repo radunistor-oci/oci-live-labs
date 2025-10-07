@@ -35,9 +35,10 @@ Click on **Dashboard** to get access to the Service.
 3. In the create menu, input the following:
 
 * the ODB Network name.
-* select the Availability Zone. Note: The the AZ drop-down menu you will only see the AWS Zones where the service is available, within the selected region.
+* select the Availability Zone. Note: The the AZ drop-down menu you will only see the AWS Zones where the service is available, within the selected region. I will use **us-west-2c** for this lab.
 * Client subnet CIDR: input an IP CIDR range which will be used by the service for deploying the database interfaces to which you will connect your applications. This has to be a non-overlapping, routable CIDR from your network.
 * Backup subnet CIDR: input an IP CIDR range which will be used by the service for deploying the database interfaces which will be used for the backup service. This has to be a non-overlapping CIDR from your network. 
+    * Note that the **Client CIDR** and the **Backup CIDR** have to be part of the same RFC1918 space (ex: 10/8). 
 * DNS Configuration: input a private DNS Zone in which the database will be deployed. There are 2 options:
     * Default: Oracle will generate a private DNS Zone ending with **oraclevcn.com**. We will use this option for this deployment.
     * Custom domain name: you can deploy the databases in any private zone that you want.
@@ -48,40 +49,19 @@ Note: it can take up to 1 hour for the ODB Network deployment to complete. You c
 
 ## Task 2: Create the AWS VPC
 
-  Now that we have a VCN and a Subnet, we need to add a VCN Route Table and a Security List to that subnet. While the default ones, deployed automatically by OCI, can be used, it is recommended to have dedicated ones.
+  The ODB Network must be peered to an AWS VPC for any connectivitty to be available. We will deploy a VPC which will act as a connection point between the AWS Transit Gateway (deployed in the next lab) and the ODB Network. 
 
-1. On the VCN Details page, on the left menu, click **Route Tables** and then click on **Create Route Table**.
-  ![Create route table1](images/creatert1.png)
+1. In the AWS Console, search for the VPC menu and press **Create VPC**. 
+  ![Create VPC menu](images/presscreatevpc.png)
 
-   In the menu that opens, give this route table a name and press **Create**. No routes are needed at this step of the lab.
-  ![Create route table2](images/creatert2.png)
+   In the menu that opens, give the VPC a name and an IPv4 CIDR. I will name it **TransitVPC**.
+  ![Create VPC details](images/createvpcdetails.png)
 
 2. On the VCN Details page, on the left menu, click **Subnets** and then click on the Firewall subnet created earlier.
   ![Click subnet](images/clicksubnet.png)
 
    In the menu that opens (subnet details), click **Edit**. In the new menu, replace the default Route Table with the one previously created and save the changes.
   ![Replace Route Table](images/subnetrt.png)
-
-3. On the VCN Details page, on the left menu, click **Security Lists** and then click on **Create Security List**.
-  ![Create sec list1](images/createsl.png)
-
-   In the menu that opens, give it a name and press **+Another Ingress Rule** and **+Another Egress Rule**.
-  ![Create sec list2](images/addrule1.png)
-
-   In the rule menus that open, create an entry that allows **0.0.0.0/0** on Ingress and Egress, respectively. 
-  ![Create sec list3](images/ingressrule.png)
-  ![Create sec list4](images/egressrule.png)
-  
-  Press **Create Security List**. 
-
-4. On the VCN Details page, on the left menu, click **Subnets** and then click on the Firewall subnet created earlier.
-  ![Click subnet2](images/clicksubnet.png)
-
-   In the menu that opens (subnet details), click **Add Security List** and add the new one we created.
-  ![Add sec list](images/addsl.png)
-
-   Next, remove the Default Security List by clicking on the 3 **dots** at the end of the row, and clicking **Remove**.
-  ![Remove sec list](images/removesl.png)
 
 ## Task 3: Create the ODB Peering
 
