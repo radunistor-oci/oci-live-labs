@@ -1,4 +1,4 @@
-# OCI Network Firewall deployment
+# Initial network setup
 
 ### Introduction
 
@@ -24,15 +24,27 @@ In this lab, you will:
 
 We will start with a basic VCN deployment. One of the goals of this livelab is also to provide an understanding of OCI routing and gateways, in relation to the OCI Network Firewall service. For this reason, we will not use the VCN Wizard which deploys all OCI Gateways and creates basic routing rules. Instead, we will manually create each artifact as needed.
 
-1. Log into the Oracle Cloud console and select the **HOME** region.
-  ![Ashburn Region Select](images/home.png)
-  Note: This lab can be completed in any OCI region. However, as you'll see in lab 2, we will use OCI CLI to connect to deployed private Compute Instances. That functionality is only available in the Home Region. If you want to use a different region, make sure you have connectivity to the private instances via other means.
+1. Log into the AWS Cloud console and select the region in which you want to deploy the service. In the **search** bar find **Oracle Database@AWS** and click on it. You will be directed to the service's home page.
+  ![ODBHome](images/odbhome.png)
 
-2. On the Oracle Cloud Infrastructure Console Home page, go to the Burger menu (on top left), select Networking and click on **Virtual cloud networks**. Press **Create VCN**, making sure you have the correct Compartment selected. Give the VCN a name and assign an IPv4 CIDR Block. For this LiveLab, I will use the LAB Compartment and the VCN CIDR 10.0.0.0/16. Leave everything else on default settings and press **Create VCN**.
-  ![Create VCN](images/createvcn.png)
+Click on **Dashboard** to get access to the Service.
+
+2. In the Service's menu, select **ODB Networks** on the left and click **Create ODB Network** on the right.
+  ![Create ODB1](images/presscreateodb.png)
   
-3. After you press **Create VCN**, you will be redirected to the VCN Details page, with the Subnets menu selected. Press **Create Subnet**. In the subnet creation menu, give it a name, assign a CIDR (I will use 10.0.0.0/27) and make it a **Private** subnet. Leave everything else with default settings.
-  ![Create Subnet](images/createsubnet.png)
+3. In the create menu, input the following:
+
+* the ODB Network name.
+* select the Availability Zone. Note: The the AZ drop-down menu you will only see the AWS Zones where the service is available, within the selected region.
+* Client subnet CIDR: input an IP CIDR range which will be used by the service for deploying the database interfaces to which you will connect your applications. This has to be a non-overlapping, routable CIDR from your network.
+* Backup subnet CIDR: input an IP CIDR range which will be used by the service for deploying the database interfaces which will be used for the backup service. This has to be a non-overlapping CIDR from your network. 
+* DNS Configuration: input a private DNS Zone in which the database will be deployed. There are 2 options:
+    * Default: Oracle will generate a private DNS Zone ending with **oraclevcn.com**. We will use this option for this deployment.
+    * Custom domain name: you can deploy the databases in any private zone that you want.
+* Leave all other setting on **default** and press Create.
+  ![Create ODB2](images/createodbmenu.png)
+
+Note: it can take up to 1 hour for the ODB Network deployment to complete. You can continue with the next task while the process is ongoing.
 
 ## Task 2: Create the AWS VPC
 
