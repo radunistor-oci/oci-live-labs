@@ -49,44 +49,50 @@ Note: it can take up to 1 hour for the ODB Network deployment to complete. You c
 
 ## Task 2: Create the AWS VPC
 
-  The ODB Network must be peered to an AWS VPC for any connectivitty to be available. We will deploy a VPC which will act as a connection point between the AWS Transit Gateway (deployed in the next lab) and the ODB Network. 
+  The ODB Network must be peered to an AWS VPC for any connectivity to be available. We will deploy a VPC, called TransitVPC, which will act as a connection point between the AWS Transit Gateway (deployed in the next lab) and the ODB Network. 
 
 1. In the AWS Console, search for the VPC menu and press **Create VPC**. 
   ![Create VPC menu](images/presscreatevpc.png)
 
-   In the menu that opens, give the VPC a name and an IPv4 CIDR. I will name it **TransitVPC**.
+   In the menu that opens, give the VPC a name and an IPv4 CIDR. I will name it **TransitVPC** and give it the 172.16.0.0/24 CIDR.
   ![Create VPC details](images/createvpcdetails.png)
 
-2. On the VCN Details page, on the left menu, click **Subnets** and then click on the Firewall subnet created earlier.
-  ![Click subnet](images/clicksubnet.png)
+2. On the AWS VPC Details page, on the left menu, click **Subnets** on the left and then click on **Create subnet** on the right.
+  ![Click subnet](images/presscreatesubnet.png)
 
-   In the menu that opens (subnet details), click **Edit**. In the new menu, replace the default Route Table with the one previously created and save the changes.
-  ![Replace Route Table](images/subnetrt.png)
+   In the menu that opens, input the following details:
+* choose the previously deployed VPC - **TransitVPC**.
+* give it a name - I will name it **transit_subnet**.
+* choose the AWS Availability Zone **identical** to the previously created ODB Network, which will be **us-west-2c** for my deployment. Note that choosing a different AZ will make all further network flows fail so the subsequent LABs in this Live-LAB will not work.
+* Choose a CIDR block from the available VPC range. I will choose **172.16.0.0/27**.
+  ![Create subnet](images/createsubnetdetails.png)
 
 ## Task 3: Create the ODB Peering
 
-  Now that we prepared the VCN and the Subnet, it is time to focus on the OCI Network Firewall. To deploy a Firewall we need to give it a policy. We will start by deploying an empty Firewall Policy and then use it to deploy an OCI Network Firewall.
+  Now that we have the ODB and the VPC, we need to peer them together so network flows are available.
 
-1. On the Oracle Cloud Infrastructure Console Home page, go to the Burger menu (on top left), select **Identity and Security** and click on **Network firewall policies**.
-  ![Click firewall policy](images/clickpol.png)
+1. In the Oracle Database@AWS menu, select **ODB Networks** on the left and make sure the status of the previously created ODB Network is **Available**. If it is not, do not move forward and try to fix the deployment by redeploying the ODB Network. 
+  ![Check ODB Status](images/checkodbstatus.png)
 
-   In the menu that opens, click **Create network firewall policy**. In the next menu, give it a name and press Create...
-  ![Empty firewall policy](images/polempty.png)
+2. In the Oracle Database@AWS menu, select **ODB peering connections** on the left and click **Create ODB peering connection** on the right.
+  ![Click create peering](images/presscreatepeer.png)
 
-   The Firewall policy that gets created will be empty of any configuration but we can use it to deploy a Network Firewall.
+   In the menu that opens, give the connection a name, select the deployed ODB Network and the TransitVPC (by VPC ID) and press Create.
+  ![Create peering details](images/createpeeringdetails.png)
 
-2. On the Oracle Cloud Infrastructure Console Home page, go to the Burger menu (on top left), select **Identity and Security** and click on **Network firewalls**. In the menu that opens, click **Create Network firewall**.
-  ![Create firewall1](images/createfw1.png)
+   Wait for the peering status to become **Available** before moving on to the next step.
 
-   In the menu that opens, give the firewall a name, select the empty policy we previously created and select the correct VCN and subnet, created earlier in this lab. Then press Create.
-  ![Create firewall2](images/createfw2.png)
+ 3. Once the Peering is **Available**, click on the ODB Network name to get the details of the ODB, needed for the next step.
+  ![ODB Details1](images/odbdetails1.png)
 
-   Wait for the Firewall to become **ACTIVE** before moving on to the next step.
+    In the menu that opens, note the following details:
+    * Client subnet CIDR range - for me this will be **10.20.0.0/24**.
+    * ODB network ARN - for me this will be **arn:aws:odb:us-west-2:054037143469:odb-network/odbnet_uen4l49j7p**.
 
-  Note: OCI Network Firewall creation can take up to 30 minutes. Consider taking a break!
+  ![ODB Details2](images/odbdetails2.png)
 
-3. Once the firewall is **ACTIVE**, click on the left hand menu on **Logs** and enable both Traffic and Threat Logs by using the toggle.
-  ![Firewall Logs](images/fwlogs.png)
+4. VPC route
+
 
 **Congratulations!** You have successfully deployed an OCI Network Firewall and completed this lab. You may now **proceed to the next lab**.
 
