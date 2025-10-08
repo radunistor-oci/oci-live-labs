@@ -91,10 +91,29 @@ Note: it can take up to 1 hour for the ODB Network deployment to complete. You c
 
   ![ODB Details2](images/odbdetails2.png)
 
-4. VPC route
+4. Next, go to the VPC details page and select the Transit VPC. In the TransitVPC, select the Resource Map and note which VPC Route table controls the transit subnet. For me, its **rtb-0da24ddbce3bdab1e**.
+  ![VPC Transit RT](images/transitvpcrt.png)
+
+  Next, we need to create a route in the VPC route table using AWS CLI. Starting from the [documentation](https://docs.aws.amazon.com/odb/latest/UserGuide/configuring.html), we need to build the route in the specific format. You will need the VPC route table ID, the client subnet CIDR and the ODB ARN, captured in the previous steps. Create the command as below, replacing my values with your own values:
+
+   ```
+    aws ec2 create-route \
+    --route-table-id rtb-0da24ddbce3bdab1e \
+    --destination-cidr-block 10.20.0.0/24 \
+    --odb-network-arn arn:aws:odb:us-west-2:054037143469:odb-network/odbnet_uen4l49j7p
+    ```    
+
+  Next, open AWS CloudShell and issue the command. You should see **"Return": true** as an output.
+
+  ![AWS Cloudshell](images/awsclioutput.png)
+
+  Confirm the new route is now visible in the Route table details, under the VPC menu.
+
+  ![Route table entry](images/routetableentry.png)
 
 
-**Congratulations!** You have successfully deployed an OCI Network Firewall and completed this lab. You may now **proceed to the next lab**.
+
+**Congratulations!** You have successfully completed this lab. You may now **proceed to the next lab**.
 
 ## Acknowledgements
 
