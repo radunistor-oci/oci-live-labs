@@ -19,7 +19,7 @@ In this lab, you will:
 * Modify the OCI Firewall policy to allow some connectivity between the two hosts.
 * Test both allowed and denied traffic and observe the Firewall Traffic Log. 
 
-![lab2](images/lab2.png)
+![lab2](images/lab2pic1.png)
 
 
 ## Task 1: Configure the OCI Cloud Shell
