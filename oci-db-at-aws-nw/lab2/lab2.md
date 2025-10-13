@@ -1,30 +1,27 @@
-# East-West Traffic Inspection
+# Additional infrastructure: AWS Transit Gateway and Application VPC 
 
 ### Introduction
 
-Estimated Time: 30-45 minutes
+Estimated Time: 30 minutes
 
-### About East-West Traffic Inspection
+### About this lab
 
-East-West Traffic Inspection is done when two or more hosts from the same environment (in our case, OCI) communicate with each other and there is a Network Firewall on the path that is policing the traffic. 
+This lab builds upon the previous one by extending the infrastructure. We will create a new VPC which specifically for "applications" and we will use an AWS Transit Gateway to make the ODB Network available to the larger AWS deployment.
 
 ### Objectives
 
 In this lab, you will:
 
-* Configure OCI Cloud Shell for management access to private Compute Instances.
-* Deploy two application subnets in the same VCN as the OCI Network Firewall
-* Deploy two private OCI Compute Instances, one in each application subnet.
-* Adjust VCN routing so the traffic between the two Instances passes through the OCI Network Firewall.
-* Modify the OCI Firewall policy to allow some connectivity between the two hosts.
-* Test both allowed and denied traffic and observe the Firewall Traffic Log. 
+* Create an "application" VPC and related components.
+* Create an AWS Transit Gateway and attach all VPCs to it.
+* Adjust various Route Tables across the environment to allow connectivity to work.
 
 ![lab2](images/lab2pic1.png)
 
 
-## Task 1: Configure the OCI Cloud Shell
+## Task 1: Deploy the Application VPC
 
-  In this lab and the next ones, we will need to connect to test Compute Instances to generate traffic and test connectivity. While this can be accomplished in any way, one of the easiest is to use the **Cloud Shell** embedded in the OCI Console. We will configure the service to run in a **private** mode so that we can use it to connect to private resources. In private mode we will have to give it a VCN and Subnet to be deployed in so we will use the Firewall Subnet created in the previous lab. This functionality is only available in the **HOME** region of your account.
+  While the Oracle Database can be access from the directly peered VPC, which we deployed in the previous Lab, it is more common for applications to live in their dedicated VPCs and connect to the database from there. We will deploy a VPC specifically for this purpose.
 
 1. Log into the Oracle Cloud console. Make sure you are in the **HOME** region of the tenancy. On the top right side, start **Cloud Shell**.
   ![Start Cloud Shell](images/startcs.png)

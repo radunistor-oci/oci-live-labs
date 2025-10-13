@@ -107,13 +107,15 @@ Note: it can take up to 1 hour for the ODB Network deployment to complete. You c
 
   ![AWS Cloudshell](images/awsclioutput.png)
 
+  Note: at this moment, adding the ODB route is only possible via AWS CLI. This may change in the future, the ODB route could be available via the AWS Console when you work on this lab.
+
   Confirm the new route is now visible in the Route table details, under the VPC menu.
 
   ![Route table entry](images/routetableentry.png)
 
+This completes the initial setup. You could simply provision a database in the ODB Network and connect to it from an EC2 Instance deployed in the Transit VPC. However, the purpose of this livelab is to explore a common architecture where applications are spread across multiple VPCs. For that, let's continue with the next labs. 
 
-
-**Congratulations!** You have successfully completed this lab. You may now **proceed to the next lab**.
+**Congratulations!** You have successfully completed this lab. 
 
 ## Acknowledgements
 
