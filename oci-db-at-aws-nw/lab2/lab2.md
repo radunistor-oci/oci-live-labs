@@ -23,13 +23,11 @@ In this lab, you will:
 
   While the Oracle Database can be access from the directly peered VPC, which we deployed in the previous Lab, it is more common for applications to live in their dedicated VPCs and connect to the database from there. We will deploy a VPC specifically for this purpose.
 
-1. Log into the Oracle Cloud console. Make sure you are in the **HOME** region of the tenancy. On the top right side, start **Cloud Shell**.
-  ![Start Cloud Shell](images/startcs.png)
+1. In the AWS Console, search for the VPC menu and press **Create VPC**. 
+  ![Create VPC menu](images/presscreatevpc.png)
 
-   If you have never used Cloud Shell before, Oracle will start the Instance with a **Public** network.
-  ![Public Cloud Shell](images/publiccs.png)
-
-  **Note:**This tutorial works on the assumption that you don't have a custom setup for your Cloud Shell deployment. If you do, adjust the guide below to not interfere with your existing setup.
+   In the menu that opens, give the VPC a name and an IPv4 CIDR. I will name it **ApplicationVPC** and give it the 192.168.0.0/24 CIDR.
+  ![Create VPC details](images/createvpcdetailslab2.png)
 
 2. On the Cloud Shell deployment, click on the down arrow next to **Network:Public** and click **Private network definition list**.
   ![Define private network](images/privatecs1.png)
